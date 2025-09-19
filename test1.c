@@ -1,22 +1,5 @@
 #include <stdio.h>
-
-#include "Lists/dllist.h"
-#include "Lists/llist.h"
-#include "JSON/json-dt-2.h"
-
-typedef struct hash_node {
-  struct hash_node *next;
-  char *key;
-  void *value;
-}HASH_NODE;
-
-typedef struct hash_table {
-  HASH_NODE **buckets;
-  int size;
-}HASH_TABLE;
-
-
-  
+#include "json/c-json.h"
 
 int main(void) {
     LIST *test1 = NULL;
@@ -44,7 +27,7 @@ int main(void) {
     test2->rem_lelmt(test2,test2->tail,&data);
     test2->ins_prev(test2,test2->tail,&a);
     test2->rem_lelmt(test2,test2->tail,NULL);
-    test2->destroy_dlist(&test2);
+    test2->destroy_dlist(&test2,&data);
 
     DT *test3 = NULL;
     DT *test4 = NULL;

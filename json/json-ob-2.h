@@ -30,10 +30,10 @@ struct obj {
   typ__object typ;
 };
 
-typedef int (*add_remove_dt)(OBJ*,DT*,void **);
+typedef int (*add_remove_dt)(OBJ*,DT*);
 typedef int (*add_dt_ins_next)(OBJ*,DT*,void*);
 typedef int (*add_dt_ins_prev)(OBJ*,DT*,void*);
-typedef void (*add_destroy_obj)(OBJ*);
+typedef void (*add_destroy_obj)(OBJ**);
 typedef int (*add_str__ID)(OBJ*,const char*);
 //nested Objects
 //oder array in Objects
@@ -58,11 +58,11 @@ struct obj_methods {
 int make_deep_copy(OBJ **deep_copy,OBJ *nested_object);
 
 void init_obj(OBJ** object,const char *ID);
-int rem_datatype(OBJ *object,DT *elmt,void **data);
-void destroy_obj(OBJ *object);
+int rem_datatype(OBJ *object,DT *elmt);
+void destroy_obj(OBJ **object);
 int DTins_next(OBJ *object,DT *datatype,void *data);
 int DTins_prev(OBJ *object,DT *datatype,void *data);
-OBJ *obj_ins_objNEXT(OBJ *object,OBJ *nested_obj,DT *datatype,HASH_TABLE **table);
+OBJ *obj_ins_objNEXT(OBJ *object,OBJ *nested_obj,DT *datatype);
 OBJ *obj_ins_objPREV(OBJ *object,OBJ *nested_obj,DT *datatype);
 OBJ *array_ins_objNEXT(OBJ *object,DT *datatype,DLIST *list_dt_array);
 OBJ *array_ins_objPREV(OBJ *object,DT *datatype,DLIST *list_dt_array);

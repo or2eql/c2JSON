@@ -9,7 +9,7 @@
 typedef struct dnode DNODE;
 typedef struct dlist DLIST;
 
-typedef int (*add_destroy_dlist) (DLIST**);
+typedef int (*add_destroy_dlist) (DLIST**,void**);
 typedef int (*add_rem_lelmt) (DLIST*,DNODE*,void **);
 typedef DLIST* (*add_ins_next) (DLIST*,DNODE*,void*);
 typedef DLIST* (*add_ins_prev) (DLIST*,DNODE*,void*);
@@ -39,7 +39,7 @@ int init_dlist(DLIST **dlist);
 int remove_lelmt(DLIST *dlist,DNODE *dnode,void **data);
 DLIST *ins_next(DLIST *dlist,DNODE *dnode,void *data);
 DLIST *ins_prev(DLIST *dlist,DNODE *dnode,void *data);
-int destroy_dlist(DLIST **dlist);
+int destroy_dlist(DLIST **dlist,void **data);
 char *create_name_value(DNODE *dnode,const char *data);
 
 #endif //DLLIST_H

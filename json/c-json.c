@@ -1,5 +1,5 @@
-#include "new-json-array.h"
-#include "new-json-ob-2.h"
+#include "json-array.h"
+#include "json-ob-2.h"
 #include "c-json.h"
 #include <stdio.h>
 #include <string.h>
@@ -12,7 +12,7 @@ void rem_leaf(DT *root,DT *leaf,DT **leaf_next) {
     ptr = &leaf;
     rem_leaf(root,((DT*)(*ptr)->elmt->head->data),((DT**)(*ptr)->elmt->head->data));
     data = (void*)(*ptr)->elmt->head->data;
-    (*ptr)->elmt = (*ptr)->elmt->Lrem_next((*ptr)->elmt,(*ptr)->elmt->head,data);
+    (*ptr)->elmt = (*ptr)->elmt->Lrem_next_elmt((*ptr)->elmt,(*ptr)->elmt->head,data);
   }else{
     return;
   }

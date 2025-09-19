@@ -13,6 +13,7 @@ int Mrem_array_elmt(ARY **array,int pos,void **data) {
   }
     
   DNODE *ptr_rem = ptr_ary->dlist_->head;
+  void *ptr_data = NULL;
   if (pos > ptr_ary->dlist_->size || pos == 0) {
     return -2;
   } else {
@@ -20,8 +21,8 @@ int Mrem_array_elmt(ARY **array,int pos,void **data) {
     for (count;count < pos;count ++) {
       ptr_rem = ptr_rem->next;
     }
-    void *ptr_data = ptr_rem->data;
-    ptr_ary->dlist_->rem_lelmt(ptr_ary->dlist,ptr_rem,&ptr_data);
+    ptr_data = ptr_rem->data;
+    ptr_ary->dlist_->rem_lelmt(ptr_ary->dlist_,ptr_rem,&ptr_data);
   }
   *array = ptr_ary;
   *data = ptr_data;
@@ -34,11 +35,9 @@ int Mdestroy_array(ARY **array,void **data) {
     return -1;
   }
 
-  void *ptr_data = *data,
-  DNODE *ptr_elmt = ptr_ary->dlist_->tail;
-
-  while (ptr_ary_>size > 0) {
-    ptr_ary->dlist->rem_lelmt(ptr_ary_->dlist_,ptr_elmt,&ptr_data);
+  void *ptr_data = *data;
+  while (ptr_ary->dlist_->size > 0) {
+    ptr_ary->dlist_->rem_lelmt(ptr_ary->dlist_,ptr_ary->dlist_->tail,&ptr_data);
   }
   if (ptr_ary->dlist_->size == 0) {
     *array = ptr_ary;
@@ -56,9 +55,7 @@ DLIST *Mdt_ins_array(ARY **array,DT *data,...) {
     return NULL;
   
   DLIST *res = NULL;
-  if ((res = malloc(sizeof(DLIST))) == NULL)
-    return NULL;
-  init_dlist(res);
+  init_dlist(&res);
 
   res->ins_next(res,res->tail,NULL);
   init_dt((DT**)&res->tail->data);
@@ -85,9 +82,7 @@ DLIST *Mobj_ins_array(ARY **array,forward_OBJ *data,...) {
     return NULL;
 
   DLIST *res = NULL;
-  if ((res = malloc(sizeof(DLIST))) == NULL)
-    return NULL;
-  init_dlist(res);
+  init_dlist(&res);
 
   res->ins_next(res,res->tail,NULL);
   init_dt((DT**)&res->tail->data);
@@ -114,9 +109,7 @@ DLIST *Marray_ins_array(ARY **array,ARY *data,...) {
     exit(-1);
 
   DLIST *res = NULL;
-  if ((res = malloc(sizeof(DLIST))) == NULL)
-    return NULL;
-  init_dlist(res);
+  init_dlist(&res);
 
   res->ins_next(res,res->tail,NULL);
   init_dt((DT**)&res->tail->data);
@@ -153,10 +146,7 @@ void init_array(ARY **array,char *ident) {
   if ((ptr_ary->ident = malloc((size +1) * sizeof(char))) == NULL)
     return;
 
-  if ((ptr_ary->dlist_ = malloc(sizeof(DLIST))) == NULL)
-    return;
-
-  dlist_init(ptr_ary->dlist_);
+  init_dlist(&ptr_ary->dlist_);
   ptr_ary->dim = 1;
 
   //Methoden initialisieren

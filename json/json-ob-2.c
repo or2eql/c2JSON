@@ -34,7 +34,7 @@ int rem_datatype(OBJ *object,DT *elmt) {
       elmt->next->prev = elmt->prev;
     }
   }
-  elmt->methods->REM(elmt);
+  elmt->REM(elmt);
   object->size --;
   return 0;
 }
@@ -45,12 +45,12 @@ void destroy_obj(OBJ **object) {
   if (!object)
     return;
   OBJ *ptr_obj = *object;
-  while (ptr_object->size > 0) {
-    ptr_object->methods->rem_dt(ptr_object,object->tail);
+  while (ptr_obj->size > 0) {
+    ptr_obj->methods->rem_dt(ptr_obj,ptr_obj->tail);
   }
-  
-  memset(object,0,sizeof(OBJ));
-  *object = ptr_object;
+  free(ptr_obj->str_ID);
+  free(ptr_obj->methods);
+  free(ptr_obj);
 }
 
 int DTins_next(OBJ *object,DT *datatype,void *data) {
@@ -138,7 +138,7 @@ OBJ *obj_ins_objNEXT(OBJ *object,OBJ *nested_obj,DT *datatype) {
   //in new_elmt kommt jetzt das objekt
   DT *Sptr_dt = nested_obj->head;
   for (;Sptr_dt != NULL;Sptr_dt = Sptr_dt->next) 
-    new_elmt->elmt->Lins_next(new_elmt->elmt,new_elmt->elmt->tail,(void*)Sptr_dt);
+    new_elmt->elmt->Lins_node_next(new_elmt->elmt,new_elmt->elmt->tail,(void*)Sptr_dt);
   return object;
 }
 
@@ -168,7 +168,7 @@ OBJ *obj_ins_objPREV(OBJ *object,OBJ *nested_obj,DT *datatype) {
   //in new_elmt kommt jetzt das objekt
   DT *Sptr_dt = nested_obj->head;
   for (;Sptr_dt != NULL;Sptr_dt = Sptr_dt->next) 
-    new_elmt->elmt->Lins_next(new_elmt->elmt,new_elmt->elmt->tail,(void*)Sptr_dt);
+    new_elmt->elmt->Lins_node_next(new_elmt->elmt,new_elmt->elmt->tail,(void*)Sptr_dt);
   return  object;
 }
 
@@ -206,7 +206,7 @@ OBJ *array_ins_objNEXT(OBJ *object,DT *datatype,DLIST *list_dt_array) {
   void *ptr_data = (void*)ptr_node->data;
 
   for (;ptr_node != NULL;ptr_node = ptr_node->next)
-    new_elmt->elmt->Lins_next(new_elmt->elmt,new_elmt->elmt->tail,(void*)ptr_data);
+    new_elmt->elmt->Lins_node_next(new_elmt->elmt,new_elmt->elmt->tail,(void*)ptr_data);
   return object;
 }
 
@@ -244,7 +244,7 @@ if (list_dt_array == NULL) {
   void *ptr_data = (void*)ptr_node->data;
 
   for (;ptr_node != NULL;ptr_node = ptr_node->next)
-    new_elmt->elmt->Lins_next(new_elmt->elmt,new_elmt->elmt->tail,(void*)ptr_data);
+    new_elmt->elmt->Lins_node_next(new_elmt->elmt,new_elmt->elmt->tail,(void*)ptr_data);
   return object;
 }
  

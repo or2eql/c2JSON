@@ -17,7 +17,7 @@ typedef DLIST* (*add_ary_ins_array)(ARY**,ARY*,...);
 typedef DLIST* (*add_dt_ins_array)(ARY**,DT*,...);
 typedef DLIST* (*add_object_ins_array)(ARY**,forward_OBJ*,...);
 typedef int (*add_rem_array_elmt)(ARY**,int,void**);
-typedef void (*add_destroy_array)(ARY*,void**);
+typedef int (*add_destroy_array)(ARY**,void**);
 
 struct ary_methods {
   add_ary_ins_array ary_ins_ary;
@@ -38,7 +38,7 @@ void init_array(ARY **array,char *ident);
 DLIST *Marray_ins_array(ARY **array,ARY *data,...);
 DLIST *Mobj_ins_array(ARY **array,forward_OBJ *data,...);
 DLIST *Mdt_ins_array(ARY **array,DT *data,...);
-void Mdestroy_array(ARY *array,void **data);
+int Mdestroy_array(ARY **array,void **data);
 int Mrem_array_elmt(ARY **array,int pos,void **data);
 
 #endif //MODUL_ARRAY_H

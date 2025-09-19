@@ -60,17 +60,17 @@ int remove_lelmt(DLIST *dlist, DNODE *dnode,void **data) {
   return dlist->size;
 }
 
-int destroy_dlist(DLIST **dlist) {
+int destroy_dlist(DLIST **dlist,void **data) {
   if (!dlist)
     return 0;
   DLIST *ptr_dlist = *dlist;
   int r = 0;
-  void **data = (void**)ptr_dlist->tail->data;
+  *data = &ptr_dlist->tail->data;
+  void *ptr_data = *data;
   while (ptr_dlist->size > 0) {
-    remove_lelmt(ptr_dlist,ptr_dlist->tail,(void **)&data); 
+    remove_lelmt(ptr_dlist,ptr_dlist->tail,&ptr_data); 
   }
   free(ptr_dlist);
-  *dlist = ptr_dlist;
 }
 
 

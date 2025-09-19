@@ -29,10 +29,6 @@ LIST *put_type(int token,char *str_key,void *ptr_data) {
   int str_len = 0;
   LIST *temp = NULL;
   
-  if ((temp = malloc(sizeof(LIST))) == NULL) {
-    return NULL;
-  }
-  
   init_list(&temp);
   char *ident1 = "str";
   char *ident2 = "int";
@@ -110,12 +106,8 @@ DT *init_dt(DT **datatype) {
   if ((ptr_datatype = malloc(sizeof(DT))) == NULL) {
     return NULL;
   }
-  if ((ptr_datatype->elmt = malloc(sizeof(LIST))) == NULL) {
-    return NULL;
-  }
  
-  LIST **new_elmt = &ptr_datatype->elmt;
-  init_list(new_elmt);
+  init_list(&ptr_datatype->elmt);
   ptr_datatype->type_data = 0;
   ptr_datatype->ID = 0;
 
@@ -123,7 +115,6 @@ DT *init_dt(DT **datatype) {
   ptr_datatype->prev = NULL;
   ptr_datatype->PUT_TYPE = put_type;
   ptr_datatype->REM = rem;
-
   *datatype = ptr_datatype;
 }
 

@@ -51,12 +51,12 @@ int ht_ins_next(HASH_TABLE **table,const void *org,void *cop) {
   unsigned pos_new_elmt = hash_address(org,capacity);
 
   MAP_NODE *new_elmt = NULL;
+  if ((new_elmt = malloc(sizeof(MAP_NODE))) == NULL)
+    return -3;
   if (ptr_table->buckets[pos_new_elmt] == NULL) {
-
-    if ((new_elmt = malloc(sizeof(MAP_NODE))) == NULL)
-      return -3;
     ptr_table->buckets[pos_new_elmt] = new_elmt;
   }else{
+    
     new_elmt->next = ptr_table->buckets[pos_new_elmt];
     ptr_table->buckets[pos_new_elmt] = new_elmt;
   }

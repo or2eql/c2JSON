@@ -45,8 +45,10 @@ void destroy_obj(OBJ **object) {
   if (!object)
     return;
   OBJ *ptr_obj = *object;
-  while (ptr_obj->size > 0) {
+  int size_ob = ptr_obj->size;
+  while (size_ob > 0) {
     ptr_obj->methods->rem_dt(ptr_obj,ptr_obj->tail);
+    size_ob--;
   }
   free(ptr_obj->str_ID);
   free(ptr_obj->methods);

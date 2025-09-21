@@ -66,7 +66,7 @@ LIST *put_type(int token,char *str_key,void *ptr_data) {
     dem data Zeiger von *temp zugewiesen
   */
   
-  if ((temp->Lins_node_next(temp,temp->tail,(void*)ptr_data)) == NULL) {
+  if ((temp->Lins_node_next(temp,temp->tail,(void*)&ptr_data)) == NULL) {
     return NULL;
   }
   

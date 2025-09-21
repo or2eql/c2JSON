@@ -5,8 +5,8 @@
 */
 #ifndef MODULE_DT_H
 #define MODULE_DT_H
-#include "../Lists/llist.h"
-#include "../Lists/dllist.h"
+#include "../lists/llist.h"
+#include "../lists/dllist.h"
 
 typedef struct datatype DT;
 typedef struct datatypeMeth DTmeth;

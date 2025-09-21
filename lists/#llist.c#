@@ -196,6 +196,9 @@ LIST  *rem_next_elmt(LIST *list_,NODE *node,void **data) {
   if (data)
     Sptr_data = *data;
   NODE *rem_next = NULL;
+  if (node == NULL) {
+    return NULL;
+  }
   // ab hier scheisse
   if (node == NULL) {
     if (node == list_->head && list_->tail)

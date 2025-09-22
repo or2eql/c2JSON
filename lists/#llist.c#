@@ -199,7 +199,7 @@ LIST  *rem_next_elmt(LIST *list_,NODE *node,void **data) {
  
   // ab hier scheisse
   if (node == NULL) {
-    if (node == list_->head && list_->tail)
+    if (node == list_->head && !list_->tail)
       list_->head = list_->tail;
     rem_next = list_->head;
     list_->head = list_->head->next;

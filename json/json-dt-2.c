@@ -22,6 +22,8 @@
   memset(datatype,0,sizeof(DT));
 }
 
+
+
 LIST *put_type(int token,char *str_key,void *ptr_data) {
   
   if (!ptr_data)
@@ -48,6 +50,8 @@ LIST *put_type(int token,char *str_key,void *ptr_data) {
     return NULL;
   if (!temp->tail->data)
     exit(-1);
+
+  *(char*)temp->tail->data = '\0';
   
   switch (token) {
   case 1: strcat(((char*)temp->tail->data),"str-");break;
@@ -57,7 +61,7 @@ LIST *put_type(int token,char *str_key,void *ptr_data) {
   case 5: strcat(((char*)temp->tail->data),"@---");break;
   default: fprintf(stderr,"\nfatal error\n");exit(-2);
   }
-  *(char*)temp->tail->data = '\0';
+  
   strncat(((char*)temp->tail->data),str_key,str_len);
 
 
@@ -66,7 +70,7 @@ LIST *put_type(int token,char *str_key,void *ptr_data) {
     dem data Zeiger von *temp zugewiesen
   */
   
-  if ((temp->Lins_node_next(temp,temp->tail,(void*)&ptr_data)) == NULL) {
+  if ((temp->Lins_node_next(temp,temp->tail,(void*)ptr_data)) == NULL) {
     return NULL;
   }
   
@@ -98,6 +102,8 @@ LIST *put_type(int token,char *str_key,void *ptr_data) {
   
   return temp;
 }
+
+
       
 DT *init_dt(DT **datatype) {
   DT *ptr_datatype = *datatype;

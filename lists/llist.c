@@ -187,73 +187,66 @@ int init_list(LIST **list_) {
   return 0;
 }
 
-
-LIST  *rem_next_elmt(LIST *list_,NODE *node,void **data) {
-  if (list_ == NULL || list_->size == 0) {
-    return list_;
+LIST *rem_next_elmt(LIST *list,NODE *node,void **data) {
+  if (list == NULL || list->size == 0) {
+    return list;
   }
-  void *Sptr_data = NULL;
-  if (data)
-    Sptr_data = *data;
+  void *ptr_data = NULL;
   NODE *rem_next = NULL;
- 
-  // ab hier scheisse
-  if (node == NULL) {
-    if (node == list_->head && list_->tail)
-      list_->head = list_->tail;
-    rem_next = list_->head;
-    list_->head = list_->head->next;
-    if (list_->head == NULL) {
-      list_->tail = NULL;
-    }
 
+  if (node == NULL) {
+    rem_next = list->head;
+    list->head = list->head->next;
+    if (list->size == 1) {
+      list->tail = NULL;
+    }
   } else {
     if (node->next == NULL) {
-      if (data) {
-	*data = NULL;
+      if (list->size != 1) {
+	return list;
       }
-      return list_;
     }
-
-    rem_next = node->next;
-    node->next = rem_next->next;
-    //node->next = node->next->next; das ist so falsch merken
-
-
-    if (rem_next == list_->tail) {
-      list_->tail = node;
-
+    if (list->size == 1) {
+    	rem_next = list->head;
+    } else {
+      rem_next = node->next;
+      node->next = rem_next->next;
+    }
+    if (node->next == NULL) {
+      list->tail = node;
     }
   }
-  list_->size --;
-  if (rem_next) {
-    if (Sptr_data) {
-      *data = rem_next->data;
-    }
+
+  if (*data) {
+    *data = rem_next->data;
   }
-  if (rem_next) {
-    free(rem_next);
-  }
-  return list_;
+  
+  free(rem_next);
+  rem_next = NULL;
+  list->size --;
+  if (list->size == 0)
+    list->head = NULL;
+  return list;
 }
+  
+  
 
-int destroy_list(LIST **list_,void **data) {
+int destroy_list(LIST **list,void **data) {
 
-  if (list_ == NULL || *list_ == NULL) {
+  if (list == NULL || *list == NULL) {
     return -1;
   }
   void *ptr_data = *data;
-  LIST *ptr_list = *list_;
   do {
-    rem_next_elmt(ptr_list,NULL,&ptr_data);
-  } while (ptr_list->size > 0); 
+    rem_next_elmt(*list,NULL,&ptr_data);
+  } while ((*list)->head); 
 
-  free(ptr_list);
-  *list_ = NULL;
+  free(*list);
+  *list = NULL;
   return 0;
 }
 
-LIST *ins_node_next(LIST *list,NODE *node,void *data){
+LIST *ins_node_next(LIST *list,NODE *node,void *data) {
   if (list == NULL) {
     return list;
   }
@@ -262,35 +255,29 @@ LIST *ins_node_next(LIST *list,NODE *node,void *data){
   if ((new_elmt = malloc(sizeof(NODE))) == NULL) {
     return NULL;
   }
+  
+  new_elmt->name_value = NULL;
+  new_elmt->sha_value = NULL;
+  new_elmt->ID = list->size ++;
+  new_elmt->status_named_node = 0;
+  new_elmt->next = NULL;
 
-  if (node == NULL || list->size <= 2) {
-    if (list->head == NULL) {
-	list->head = new_elmt;
-    } else {
-      if (list->tail == NULL) {
-	list->tail = new_elmt;
-      }
-    }
-    if (list->tail) {
-      list->head->next = new_elmt;
-    }
-  } else {
-    if (new_elmt->next == NULL) {
+  
+  if (node == NULL) {
+    new_elmt->next = list->head;
+    list->head = new_elmt;
+    if (list->tail == NULL) {
       list->tail = new_elmt;
     }
-    //insert new elmt in the next pointer
-    if (list->size > 2) {
-      new_elmt->next = node->next;
-      node->next = new_elmt;
+  } else {
+    new_elmt->next = node->next;
+    node->next = new_elmt;
+    if (new_elmt->next == NULL) {
+      list->tail = new_elmt;
     }
   }
   if (data) {
     new_elmt->data = (void*)data;
   }
-
-  new_elmt->name_value = NULL;
-  new_elmt->sha_value = NULL;
-  new_elmt->ID = list->size ++;
-  new_elmt->status_named_node = 0;
   return list;
 }

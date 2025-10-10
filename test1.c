@@ -9,17 +9,21 @@ int main(void) {
     int b = 654;
     test1 = test1->Lins_node_next(test1,test1->tail,&a);
     test1 = test1->Lins_node_next(test1,test1->head,&a);
-    test1 = test1->Lrem_next_elmt(test1,test1->tail,&data);
-    test1 = test1->Lrem_next_elmt(test1,test1->tail,NULL);
     test1 = test1->Lins_node_next(test1,test1->tail,&a);
     test1 = test1->Lins_node_next(test1,test1->head,&a);
+    test1 = test1->Lrem_next_elmt(test1,test1->head->next,&data);
+    test1 = test1->Lrem_next_elmt(test1,test1->head,&data);
+    test1 = test1->Lrem_next_elmt(test1,test1->head,&data);
+    test1 = test1->Lrem_next_elmt(test1,test1->head,&data);
+    test1 = test1->Lins_node_next(test1,test1->head,&a);
+    //    test1 = test1->
 
     NODE *ptr = test1->head;
     test1->name_node(&ptr,"hello world");
     test1->create_sha256(&ptr,ptr->name_value);
     test1->name_node(&ptr,"2hello world");
     test1->Ldestr_list(&test1,&data);
-
+ 
     DLIST *test2 = NULL;
    
     res = init_dlist(&test2);

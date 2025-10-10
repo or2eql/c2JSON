@@ -58,7 +58,7 @@ DLIST *Mdt_ins_array(ARY **array,DT *data,...) {
   init_dlist(&res);
 
   res->ins_next(res,res->tail,NULL);
-  init_dt((DT**)&res->tail->data);
+  res->tail->data = init_dt();
   ((DT*)res->tail->data)->type_data = 1;
   
   va_list args;
@@ -85,7 +85,7 @@ DLIST *Mobj_ins_array(ARY **array,forward_OBJ *data,...) {
   init_dlist(&res);
 
   res->ins_next(res,res->tail,NULL);
-  init_dt((DT**)&res->tail->data);
+  res->tail->data = init_dt();
   ((DT*)res->tail->data)->type_data = 2;
   
   va_list args;
@@ -112,7 +112,7 @@ DLIST *Marray_ins_array(ARY **array,ARY *data,...) {
   init_dlist(&res);
 
   res->ins_next(res,res->tail,NULL);
-  init_dt((DT**)&res->tail->data);
+  res->tail->data = init_dt();
   ((DT*)res->tail->data)->type_data = 3;
 
   va_list args;

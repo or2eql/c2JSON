@@ -119,7 +119,7 @@ OBJ *obj_ins_objNEXT(OBJ *object,OBJ *nested_obj,DT *datatype) {
   if(!datatype || !object || !nested_obj)
     return NULL;
   DT *new_elmt = NULL;
-  init_dt(&new_elmt);
+  new_elmt = init_dt();
   new_elmt->type_data = 2;
   if (object->size == 0) {
     object->head = new_elmt;
@@ -149,7 +149,7 @@ OBJ *obj_ins_objPREV(OBJ *object,OBJ *nested_obj,DT *datatype) {
   if(!datatype || !object || !nested_obj)
     return NULL;
   DT *new_elmt = NULL;
-  init_dt(&new_elmt);
+  new_elmt = init_dt();
   new_elmt->type_data = 2;
   if (object->size == 0) {
     object->head = new_elmt;
@@ -184,7 +184,7 @@ OBJ *array_ins_objNEXT(OBJ *object,DT *datatype,DLIST *list_dt_array) {
   }
 
   DT *new_elmt = NULL;
-  init_dt(&new_elmt);
+  new_elmt = init_dt();
   new_elmt->type_data = 3;
   if (object->size == 0) {
     object->head = new_elmt;
@@ -222,7 +222,7 @@ if (list_dt_array == NULL) {
   }
 
   DT *new_elmt = NULL;
-  init_dt(&new_elmt);
+  new_elmt = init_dt();
   new_elmt->type_data = 3;
   if (object->size == 0) {
     object->head = new_elmt;

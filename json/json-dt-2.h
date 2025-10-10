@@ -32,7 +32,7 @@ struct datatype {
 };
 
 
-DT *init_dt(DT **data_type);
+DT *init_dt(void);
 LIST *put_type(int token,char *str_key,void *data);
 void rem(DT *data_type);
 

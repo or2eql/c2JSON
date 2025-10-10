@@ -70,7 +70,7 @@ LIST *put_type(int token,char *str_key,void *ptr_data) {
     dem data Zeiger von *temp zugewiesen
   */
   
-  if ((temp->Lins_node_next(temp,temp->tail,(void*)ptr_data)) == NULL) {
+  if ((temp->Lins_node_next(temp,temp->tail,ptr_data)) == NULL) {
     return NULL;
   }
   
@@ -105,22 +105,21 @@ LIST *put_type(int token,char *str_key,void *ptr_data) {
 
 
       
-DT *init_dt(DT **datatype) {
-  DT *ptr_datatype = *datatype;
-  if (ptr_datatype)
-    return NULL;
-  if ((ptr_datatype = malloc(sizeof(DT))) == NULL) {
+DT *init_dt(void) {
+  DT *datatype = NULL;
+  
+  if ((datatype = malloc(sizeof(DT))) == NULL) {
     return NULL;
   }
- 
-  init_list(&ptr_datatype->elmt);
-  ptr_datatype->type_data = 0;
-  ptr_datatype->ID = 0;
+  memset(datatype, 0, sizeof(DT));
+  init_list(&datatype->elmt);
+  datatype->type_data = 0;
+  datatype->ID = 0;
 
-  ptr_datatype->next = NULL;
-  ptr_datatype->prev = NULL;
-  ptr_datatype->PUT_TYPE = put_type;
-  ptr_datatype->REM = rem;
-  *datatype = ptr_datatype;
+  datatype->next = NULL;
+  datatype->prev = NULL;
+  datatype->PUT_TYPE = put_type;
+  datatype->REM = rem;
+  return  datatype;
 }
 

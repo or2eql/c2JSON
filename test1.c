@@ -7,6 +7,7 @@ int main(void) {
     int res = init_list(&test1);
     int a = 123;
     int b = 654;
+    char *string = "3hello world";
     test1 = test1->Lins_node_next(test1,test1->tail,&a);
     test1 = test1->Lins_node_next(test1,test1->head,&a);
     test1 = test1->Lins_node_next(test1,test1->tail,&a);
@@ -35,16 +36,25 @@ int main(void) {
 
     DT *test3 = NULL;
     DT *test4 = NULL;
-    init_dt(&test3);
-    init_dt(&test4);
+    DT *test5 = NULL;
+    DT *test6 = NULL;
+    DT *test7 = NULL;
+    test3 = init_dt();
+    test4 = init_dt();
+    test5 = init_dt();
+    test6 = init_dt();
+    test7 = init_dt();
     test3->elmt = test3->PUT_TYPE(TYPEint,"das ist ein test",&a);
     test4->elmt = test4->PUT_TYPE(TYPEint,"das ist ein zweiter test",&b);
-    OBJ *test5 = NULL;
-    init_obj(&test5,"test-ob");
-    test5->methods->dt_ins_next(test5,test5->head,test3);
-    test5->methods->dt_ins_next(test5,test5->head,test4);
-    test5->methods->dt_ins_next(test5,test5->tail,test3);
-    test5->methods->dt_ins_next(test5,test5->tail,test4);
-    test5->methods->destr_obj(&test5);
+    test5->elmt = test5->PUT_TYPE(TYPEint,"keiner",&a);
+    //test6->elmt = test6->PUT_TYPE(TYPEint,"alle",&b);
+    test7->elmt = test7->PUT_TYPE(TYPEstr,"lulz",string);
+    OBJ *test05 = NULL;
+    init_obj(&test05,"test-ob");
+    test05->methods->dt_ins_next(test05,test05->head,test3);
+    test05->methods->dt_ins_next(test05,test05->head,test4);
+    test05->methods->dt_ins_next(test05,test05->tail,test3);
+    test05->methods->dt_ins_next(test05,test05->tail,test4);
+    test05->methods->destr_obj(&test05);
     return 0;
 }
